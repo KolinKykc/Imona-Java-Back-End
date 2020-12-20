@@ -50,9 +50,3 @@ public class PlayerController {
         return "deleted";
     }
 }
-/*
-    @PostMapping({""})
-    public String createPlayer(@RequestBody Player player) {
-        this.playerService.createPlayer(player);
-        return "Saved";
-    }*/

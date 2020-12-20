@@ -144,10 +144,3 @@ public class Player implements Serializable {
         this.actions = actions;
     }
 }
-/*
-* {"name": "kolin2",
-    "surname": "kolin2",
-    "birthDate": "1998-02-01T00:00:00.000+00:00",
-    "birthCity": "kolin",
-    "active": false}
-* */

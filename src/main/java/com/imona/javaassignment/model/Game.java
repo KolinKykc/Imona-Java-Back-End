@@ -96,8 +96,3 @@ public class Game implements Serializable {
         this.playerSet = playerSet;
     }
 }
-/*
-* { "name": "kolin2",
-    "description": "kolin2",
-    "logoUrl": "1998-02-01T00:00:00.000+00:00"
-    }*/
