@@ -7,11 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
-@RequestMapping
+@RequestMapping("/games/{game_id}/players")
 public class PlayerController {
 
     @Autowired
@@ -20,11 +19,16 @@ public class PlayerController {
     @Autowired
     GameService gameService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "")
-    public ResponseEntity<List<Player>> getPlayers() {
-        List<Player> players = playerService.allPlayers();
-        return ResponseEntity.ok(players);
+    @GetMapping("")
+    public Optional<Set<Player>> getPlayers(@PathVariable (value = "game_id") Long game_id) {
+        return playerService.findAllPlayersByGameId(game_id);
     }
+    @PostMapping("")
+    public Player createPlayer(@PathVariable (value = "game_id") Long game_id, @RequestBody Player player) {
+        playerService.createPlayer(player,game_id);
+        return player;
+    }
+
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public ResponseEntity<?> getPlayer(@PathVariable("id") Long id) {
@@ -34,11 +38,6 @@ public class PlayerController {
         } catch (Exception ex) {
             return ResponseEntity.notFound().build();
         }
-    }
-    @PostMapping({""})
-    public String createPlayer(@RequestBody Player player) {
-        this.playerService.createPlayer(player);
-        return "Saved";
     }
     @PutMapping({"/{id}"})
     public String updatePlayer(@PathVariable Long id, @RequestBody Player player) {
@@ -50,9 +49,10 @@ public class PlayerController {
         this.playerService.deletePlayer(id);
         return "deleted";
     }
-
-
-
-
-
 }
+/*
+    @PostMapping({""})
+    public String createPlayer(@RequestBody Player player) {
+        this.playerService.createPlayer(player);
+        return "Saved";
+    }*/

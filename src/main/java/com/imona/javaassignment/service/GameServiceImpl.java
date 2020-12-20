@@ -37,6 +37,7 @@ public class GameServiceImpl implements GameService {
             exGame.setName(game.getName());
             exGame.setDescription(game.getDescription());
             exGame.setLogoUrl(game.getLogoUrl());
+            exGame.setPlayerSet(game.getPlayerSet());
             this.gameRepository.save(exGame);
         }
     }

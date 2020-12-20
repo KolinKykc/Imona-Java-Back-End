@@ -12,7 +12,7 @@ import java.util.Set;
 @EntityListeners(AuditingEntityListener.class)
 public class Action implements Serializable {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "ACTION_Id")
     private Long id;
 

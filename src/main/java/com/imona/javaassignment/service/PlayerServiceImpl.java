@@ -1,19 +1,22 @@
 package com.imona.javaassignment.service;
 
+import com.imona.javaassignment.model.Game;
 import com.imona.javaassignment.model.Player;
+import com.imona.javaassignment.repository.GameRepository;
 import com.imona.javaassignment.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PlayerServiceImpl implements PlayerService{
 
     @Autowired
     PlayerRepository playerRepository;
+
+    @Autowired
+    GameRepository gameRepository;
 
     @Override
     public List<Player> allPlayers() {
@@ -30,8 +33,19 @@ public class PlayerServiceImpl implements PlayerService{
     }
 
     @Override
-    public void createPlayer(Player player) {
+    public Optional<Set<Player>> findAllPlayersByGameId(Long game_id) {
+        Optional<Set<Player>> playerList;
+        playerList = gameRepository.findById(game_id).map(Game::getPlayerSet);
+        return playerList;
+    }
+
+
+    @Override
+    public Player createPlayer(Player player, Long game_id) {
+        Optional<Game> game = gameRepository.findById(game_id);
+        game.ifPresent(game1 -> player.setGame(game1));
         this.playerRepository.save(player);
+        return player;
     }
 
     @Override
